@@ -30,5 +30,3 @@ It supports querying, inserting, and analyzing rental data according to predefin
 - `static/` – static assets (CSS, images)
 - `queries_views.sql` – SQL VIEW definitions for DBMS queries
 
-## Notes
-This repository is kept **private** to comply with academic integrity rules.
