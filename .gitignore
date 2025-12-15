@@ -1,0 +1,18 @@
+# Environment variables
+.env
+.env.*
+
+# Python / Django
+__pycache__/
+*.log
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# MSSQL
+*.mdf
+*.ldf
+*.bak
+

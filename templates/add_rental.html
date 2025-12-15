@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rental Add</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+  <h1>Rental Add</h1>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="{% url 'queries' %}">Query Results</a></li>
+      <li><a href="{% url 'owner_search' %}">Search and Analysis</a></li>
+      <li><a href="{% url 'home' %}">Home Page</a></li>
+    </ul>
+  </nav>
+
+  <!-- Messages -->
+  {% if message %}
+    <p class="success">{{ message }}</p>
+  {% endif %}
+  {% if warning %}
+    <p class="warning">{{ warning }}</p>
+  {% endif %}
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
+
+  <!-- Rental Form -->
+  <form method="POST">
+    {% csrf_token %}
+
+    <label for="renterid">Renter ID:</label><br>
+    <input type="number" name="renterid" min="1" required><br><br>
+
+    <label for="aid">Apartment ID:</label><br>
+    <select name="aid" required>
+      {% for apt in apartments %}
+        <option value="{{ apt.aid }}">{{ apt.aid }} - {{ apt.city }}</option>
+      {% endfor %}
+    </select><br><br>
+
+    <label for="cost">Monthly Cost:</label><br>
+    <input type="number" name="cost" min="501" required><br><br>
+
+    <input type="submit" value="sumbit">
+  </form>
+
+</body>
+</html>
+

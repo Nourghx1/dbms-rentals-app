@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Analysis and Search</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+  <!-- Top navigation -->
+  <nav>
+    <ul>
+      <li><a href="{% url 'home' %}">Home Page</a></li>
+      <li><a href="{% url 'queries' %}">Query Results</a></li>
+      <li><a href="{% url 'add_rental' %}">Add Rental</a></li>
+    </ul>
+  </nav>
+
+  <h1>Analysis and Search</h1>
+
+  <!-- Form 1: Find Owner -->
+  <div class="form-box">
+    <h2>Find Owner</h2>
+    <form method="POST" action="{% url 'owner_search' %}">
+      {% csrf_token %}
+      <label for="prefix">Enter name prefix:</label>
+      <input type="text" name="prefix" id="prefix" required>
+      <button type="submit">Search</button>
+    </form>
+
+    {% if owners is not none %}
+      {% if owners %}
+        <table>
+          <thead>
+            <tr><th>Owner ID</th><th>Owner Name</th></tr>
+          </thead>
+          <tbody>
+            {% for owner in owners %}
+              <tr>
+                <td>{{ owner.0 }}</td>
+                <td>{{ owner.1 }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No owners found with that prefix.</p>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <!-- Form 2: Analyze Owner -->
+  <div class="form-box">
+    <h2>Analyze Owner</h2>
+    <form method="POST" action="{% url 'owner_analysis' %}">
+      {% csrf_token %}
+      <label for="owner_id">Enter Owner ID:</label>
+      <input type="number" name="owner_id" id="owner_id" min="1" required>
+      <button type="submit">Analyze</button>
+    </form>
+
+    {% if analysis %}
+      <div class="analysis-results">
+        <p><strong>Number of Apartments:</strong> {{ analysis.apartments }}</p>
+        <p><strong>Average Roommates (per year):</strong> {{ analysis.avg_roommates }}</p>
+        <p><strong>Other owners in same city:</strong> {{ analysis.other_owners }}</p>
+      </div>
+    {% elif analysis_error %}
+      <p class="error">{{ analysis_error }}</p>
+    {% endif %}
+  </div>
+
+
+
+</body>
+</html>

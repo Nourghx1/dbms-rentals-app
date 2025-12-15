@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Rentals App Home Page</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+  <h1>The Rentals App Home Page</h1>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="{% url 'queries' %}">Query Results</a></li>
+      <li><a href="{% url 'add_rental' %}">Add a New Rental</a></li>
+      <li><a href="{% url 'owner_search' %}">Search and Analysis</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Section -->
+  <section>
+    <img src="{% static 'images/rentals.png' %}" alt="Rental Banner" width="300">
+    <p>This is a demo website for the Rentals App, where you can explore various rental properties and their details.</p>
+  </section>
+
+</body>
+</html>
